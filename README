@@ -1,0 +1,21 @@
+NAME
+    Padre::Plugin::PerlTidy - Format perl files using Perl::Tidy
+
+SYNOPIS
+    This is a simple plugin to run Perl::Tidy on your source code.
+
+    Currently there are no customisable options (since the Padre plugin
+    system doesn't support that yet) - however Perl::Tidy will use your
+    normal .perltidyrc file if it exists (see Perl::Tidy documentation).
+
+AUTHOR
+    Patrick Donelan
+
+    Brian Cassidy <bricas@cpan.org>
+
+COPYRIGHT AND LICENSE
+    Copyright 2008 by Patrick Donelan http://www.patspam.com
+
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+

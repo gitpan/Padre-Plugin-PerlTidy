@@ -1,0 +1,23 @@
+---
+name: Padre-Plugin-PerlTidy
+version: 0.01
+author:
+  - 'Brian Cassidy <bricas@cpan.org>'
+abstract: Format perl files using Perl::Tidy
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+requires:
+  Padre: 0.12
+  Perl::Tidy: 0
+  perl: 5.008
+build_requires:
+  Test::More: 0.47
+provides:
+  Padre::Plugin::PerlTidy:
+    file: lib/Padre/Plugin/PerlTidy.pm
+    version: 0.01
+generated_by: Module::Build version 0.3
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2
