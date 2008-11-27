@@ -8,13 +8,32 @@ SYNOPIS
     system doesn't support that yet) - however Perl::Tidy will use your
     normal .perltidyrc file if it exists (see Perl::Tidy documentation).
 
-AUTHOR
-    Patrick Donelan
+INSTALLATION
+    You can install this module like any other Perl module and it will
+    become available in your Padre editor. However, you can also choose to
+    install it into your user's Padre configuration directory only:
 
+    *   Install the prerequisite modules.
+
+    *   perl Makefile.PL
+
+    *   make
+
+    *   make installplugin
+
+    This will install the plugin as PerlTidy.par into your user's
+    ~/.padre/plugins directory.
+
+    Similarly, "make plugin" will just create the PerlTidy.par which you can
+    then copy manually.
+
+AUTHOR
     Brian Cassidy <bricas@cpan.org>
 
+    Patrick Donelan
+
 COPYRIGHT AND LICENSE
-    Copyright 2008 by Patrick Donelan http://www.patspam.com
+    Copyright 2008 by Patrick Donelan, Brian Cassidy
 
     This library is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
