@@ -16,9 +16,9 @@ no_index:
     - inc
     - t
 requires:
-  Padre: 0.18
+  Padre: 0.21
   Perl::Tidy: 0
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.02
+version: 0.03
