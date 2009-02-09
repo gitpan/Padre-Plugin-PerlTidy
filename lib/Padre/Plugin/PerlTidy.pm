@@ -1,5 +1,6 @@
 package Padre::Plugin::PerlTidy;
 
+use 5.008001;
 use strict;
 use warnings;
 
@@ -7,7 +8,9 @@ use base 'Padre::Plugin';
 
 use Padre::Wx ();
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
+
+=pod
 
 =head1 NAME
 
@@ -24,7 +27,7 @@ file if it exists (see Perl::Tidy documentation).
 =cut
 
 sub padre_interfaces {
-	'Padre::Plugin' => '0.23',
+    'Padre::Plugin' => '0.26',
 }
 
 sub menu_plugins_simple {
@@ -37,25 +40,26 @@ sub menu_plugins_simple {
 }
 
 sub _tidy {
-    my ( $self, $src ) = @_;
+    my ( $main, $src ) = @_;
 
     require Perl::Tidy;
 
     return unless defined $src;
 
-    my $doc = $self->current->document;
+    my $doc = $main->current->document;
 
     if ( !$doc->isa( 'Padre::Document::Perl' ) ) {
         return Wx::MessageBox( 'Document is not a Perl document',
-            "Error", Wx::wxOK | Wx::wxCENTRE, $self );
+            "Error", Wx::wxOK | Wx::wxCENTRE, $main );
     }
 
     my ( $output, $error );
 
     # TODO: suppress the senseless warning from PerlTidy
     eval {
+        my $argv = '';
         Perl::Tidy::perltidy(
-            argv        => \'',
+            argv        => \$argv,
             source      => \$src,
             destination => \$output,
             errorfile   => \$error,
@@ -67,42 +71,42 @@ sub _tidy {
         Wx::MessageBox(
             $error_string,
             "PerlTidy Error",
-            Wx::wxOK | Wx::wxCENTRE, $self
+            Wx::wxOK | Wx::wxCENTRE, $main
         );
         return;
     }
 
     if ( defined $error ) {
         my $width = length( $doc->filename ) + 2;
-        $self->{ gui }->{ output_panel }->AppendText(
+        Padre::Current->main->output->AppendText(
             "\n\n" . "-" x $width . "\n" . $doc->filename . "\n" . "-" x $width . "\n" );
-        $self->{ gui }->{ output_panel }->AppendText( "$error\n" );
-        $self->{ gui }->{ output_panel }->select;
+        Padre::Current->main->output->AppendText( "$error\n" );
+        Padre::Current->main->show_output(1);
     }
     return $output;
 }
 
 sub tidy_selection {
-    my ( $self, $event ) = @_;
-    my $src = $self->current->text;
+    my ( $main, $event ) = @_;
+    my $src = $main->current->text;
 
-    my $newtext = _tidy( $self, $src );
+    my $newtext = _tidy( $main, $src );
 
     return unless defined $newtext && length $newtext;
 
     $newtext =~ s{\n$}{};
 
-    my $editor = $self->current->editor;
+    my $editor = $main->current->editor;
     $editor->ReplaceSelection( $newtext );
 }
 
 sub tidy_document {
-    my ( $self, $event ) = @_;
+    my ( $main, $event ) = @_;
 
-    my $doc = $self->current->document;
+    my $doc = $main->current->document;
     my $src = $doc->text_get;
 
-    my $newtext = _tidy( $self, $src );
+    my $newtext = _tidy( $main, $src );
 
     return unless defined $newtext && length $newtext;
 
@@ -110,9 +114,9 @@ sub tidy_document {
 }
 
 sub _get_filename {
-    my $self = shift;
+    my $main = shift;
 
-    my $doc     = $self->current->document or return;
+    my $doc     = $main->current->document or return;
     my $current = $doc->filename;
     my $default_dir = '';
 
@@ -125,7 +129,7 @@ sub _get_filename {
 
     while (1) {
         my $dialog = Wx::FileDialog->new(
-            $self,
+            $main,
             Wx::gettext("Save file as..."),
             $default_dir,
             $doc->filename . '.html',
@@ -143,7 +147,7 @@ sub _get_filename {
                 Wx::gettext("File already exists. Overwrite it?"),
                 Wx::gettext("Exist"),
                 Wx::wxYES_NO,
-                $self,
+                $main,
             );
             if ( $res == Wx::wxYES ) {
                 return $path;
@@ -155,20 +159,20 @@ sub _get_filename {
 }
 
 sub _export {
-    my ( $self, $src ) = @_;
+    my ( $main, $src ) = @_;
 
     require Perl::Tidy;
 
     return unless defined $src;
 
-    my $doc = $self->current->document;
+    my $doc = $main->current->document;
 
     if ( !$doc->isa( 'Padre::Document::Perl' ) ) {
         return Wx::MessageBox( 'Document is not a Perl document',
-            "Error", Wx::wxOK | Wx::wxCENTRE, $self );
+            "Error", Wx::wxOK | Wx::wxCENTRE, $main );
     }
 
-    my $filename = _get_filename($self);
+    my $filename = _get_filename($main);
 
     return unless defined $filename;
 
@@ -176,8 +180,9 @@ sub _export {
 
     # TODO: suppress the senseless warning from PerlTidy
     eval {
+        my $argv = '-html -nnn';
         Perl::Tidy::perltidy(
-            argv        => \'-html -nnn',
+            argv        => \$argv,
             source      => \$src,
             destination => $filename,
             errorfile   => \$error,
@@ -189,40 +194,43 @@ sub _export {
         Wx::MessageBox(
             $error_string,
             "PerlTidy Error",
-            Wx::wxOK | Wx::wxCENTRE, $self
+            Wx::wxOK | Wx::wxCENTRE, $main
         );
         return;
     }
 
     if ( defined $error ) {
         my $width = length( $doc->filename ) + 2;
-        $self->{ gui }->{ output_panel }->AppendText(
+        Padre::Current->main->output->AppendText(
             "\n\n" . "-" x $width . "\n" . $doc->filename . "\n" . "-" x $width . "\n" );
-        $self->{ gui }->{ output_panel }->AppendText( "$error\n" );
-        $self->{ gui }->{ output_panel }->select;
+        Padre::Current->main->output->AppendText( "$error\n" );
+        Padre::Current->main->show_output(1);
     }
 
     return;
 }
 
 sub export_selection {
-    my ( $self, $event ) = @_;
-    my $src = $self->current->text;
+    my ( $main, $event ) = @_;
+    my $src = $main->current->text;
 
-    _export( $self, $src );
+    _export( $main, $src );
     return;
 }
 
 sub export_document {
-    my ( $self, $event ) = @_;
+    my ( $main, $event ) = @_;
 
-    my $doc = $self->current->document;
+    my $doc = $main->current->document;
     my $src = $doc->text_get;
 
-    _export( $self, $src );
+    _export( $main, $src );
     return;
 }
 
+1;
+
+=pod
 
 =head1 INSTALLATION
 
@@ -262,5 +270,3 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
 =cut
-
-1;

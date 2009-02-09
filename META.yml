@@ -10,15 +10,16 @@ license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
+module_name: Padre::Plugin::PerlTidy
 name: Padre-Plugin-PerlTidy
 no_index:
   directory:
     - inc
     - t
 requires:
-  Padre: 0.23
+  Padre: 0.26
   Perl::Tidy: 0
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.04
+version: 0.05
