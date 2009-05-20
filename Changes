@@ -1,5 +1,12 @@
 Revision history for Perl extension Padre::Plugin::PerlTidy.
 
+0.06  Wed May 20 2009
+    - Keyboard shortcuts added (claudio)
+    - Added translations:
+      - French (jquelin)
+      - Polish (therek)
+      - Chinese (Traditional) translation (BLUET)
+
 0.05  Mon Feb 09 2009
     - Use Padre 0.26 API for output window (KAARE)
     - Move author tests to release time checking (ADAMK + BRICAS)
