@@ -27,6 +27,25 @@ INSTALLATION
     Similarly, "make plugin" will just create the PerlTidy.par which you can
     then copy manually.
 
+METHODS
+  padre_interfaces
+    Indicates our compatibility with Padre.
+
+  menu_plugins_simple
+    Menu items for this plugin.
+
+  tidy_document
+    Runs Perl::Tidy on the current document.
+
+  export_document
+    Export the current document as html.
+
+  tidy_selection
+    Runs Perl::Tidy on the current code selection.
+
+  export_selection
+    Export the current code selection as html.
+
 AUTHOR
     Brian Cassidy <bricas@cpan.org>
 

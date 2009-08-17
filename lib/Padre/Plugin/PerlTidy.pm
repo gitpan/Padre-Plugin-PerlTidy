@@ -23,12 +23,14 @@ use Padre::Current ();
 use Padre::Util    ('_T');
 use Padre::Wx      ();
 use Padre::Plugin  ();
-
-our $VERSION = '0.07';
+use constant {  SELECTIONSIZE => 40, }; # this constant is used when storing 
+					# and restoring the cursor position.
+					# Keep it small to limit resource use.
+our $VERSION  = '0.08';
 our @ISA     = 'Padre::Plugin';
 
 sub padre_interfaces {
-    'Padre::Plugin' => '0.26'
+    'Padre::Plugin' => '0.43'
 }
 
 sub menu_plugins_simple {
@@ -230,13 +232,12 @@ sub _restore_cursor_position {
 
     # parameter: $main, compiled regex
     my ( $main, $regex, $start ) = @_;
-    my $shuffle = 80;
     my $doc     = $main->current->document;
     my $editor  = $doc->editor;
     my $text    = $editor->GetTextRange(
-        ( $start - $shuffle ) > 0 ? $start - $shuffle
+        ( $start - SELECTIONSIZE ) > 0 ? $start - SELECTIONSIZE
         : 0,
-        ( $start + $shuffle < $editor->GetLength() ) ? $start + $shuffle
+        ( $start + SELECTIONSIZE < $editor->GetLength() ) ? $start + SELECTIONSIZE
         : $editor->GetLength()
     );
     eval {
@@ -246,6 +247,7 @@ sub _restore_cursor_position {
             $editor->SetSelection( $pos, $pos );
         }
     };
+    $editor->goto_line_centerize($editor->GetCurrentLine);
     return;
 }
 
@@ -258,13 +260,10 @@ sub _store_cursor_position {
     my $doc    = $main->current->document;
     my $editor = $doc->editor;
     my $pos    = $editor->GetCurrentPos;
-
-    # A smaller selection to save memory 
-    my $sel_width = 80;    # chars before
     my $start;
 
-    if ( ( $pos - $sel_width ) > 0 ) {
-        $start = $pos - $sel_width;
+    if ( ( $pos - SELECTIONSIZE ) > 0 ) {
+        $start = $pos - SELECTIONSIZE;
     }
     else {
         $start = 0;
@@ -279,12 +278,10 @@ sub _store_cursor_position {
     };
     if ($@) {
         $regex = qw{^.};
-        print @_;
+        print STDERR @_;
     }
     return ( $regex, $start );
 }
-
-
 
 1;
 
@@ -313,6 +310,32 @@ directory.
 
 Similarly, "make plugin" will just create the PerlTidy.par which you can
 then copy manually.
+
+=head1 METHODS
+
+=head2 padre_interfaces
+
+Indicates our compatibility with Padre.
+
+=head2 menu_plugins_simple
+
+Menu items for this plugin.
+
+=head2 tidy_document
+
+Runs Perl::Tidy on the current document.
+
+=head2 export_document
+
+Export the current document as html.
+
+=head2 tidy_selection
+
+Runs Perl::Tidy on the current code selection.
+
+=head2 export_selection
+
+Export the current code selection as html.
 
 =head1 AUTHOR
 
