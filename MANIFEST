@@ -26,5 +26,6 @@ share/locale/Padre__Plugin__PerlTidy-pl.po
 share/locale/Padre__Plugin__PerlTidy-pt-br.po
 share/locale/Padre__Plugin__PerlTidy-zh-tw.po
 t/01-load.t
+t/02-menu.t
 xt/release/pod.t
 xt/release/pod_coverage.t

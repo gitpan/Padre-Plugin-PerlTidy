@@ -23,11 +23,11 @@ no_index:
     - t
     - xt
 requires:
-  Padre: 0.43
+  Padre: 0.54
   Perl::Tidy: 0
   perl: 5.8.1
 resources:
   homepage: http://padre.perlide.org/
   license: http://dev.perl.org/licenses/
   repository: http://svn.perlide.org/padre/trunk/Padre-Plugin-PerlTidy
-version: 0.08
+version: 0.09
