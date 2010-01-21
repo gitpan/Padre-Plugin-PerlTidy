@@ -1,5 +1,13 @@
 Revision history for Perl extension Padre::Plugin::PerlTidy.
 
+0.10  Thu Jan 21 2010
+    - A variety of cleanups to use Padre::Current more efficiently (ADAMK)
+    - Added menu separator (ADAMK)
+    - A somewhat cleaner code style that is closer to general conventions (ADAMK)
+    - Added project config file that matches that of Padre itself (ADAMK)
+    - Applied the Perl::Tidy plugin to itself, using the project config (ADAMK, BRICAS)
+    - Added a few more menu tests (BRICAS)
+
 0.09  Thu Jan 14 2010
     - Fixed #776: PerlTidy needs -nse and -nst options (MRWHIPPLE)
     - _T() replaced with Wx::gettext() (BRICAS)
