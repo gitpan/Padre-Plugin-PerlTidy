@@ -24,7 +24,7 @@ use Padre::Current ();
 use Padre::Wx      ();
 use Padre::Plugin  ();
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 our @ISA     = 'Padre::Plugin';
 
 # This constant is used when storing
@@ -67,12 +67,8 @@ sub _tidy {
 		return;
 	}
 	unless ( $document->isa('Padre::Document::Perl') ) {
-		return Wx::MessageBox(
-			Wx::gettext('Document is not a Perl document'),
-			Wx::gettext('Error'),
-			Wx::wxOK | Wx::wxCENTRE,
-			$main
-		);
+		$main->error( Wx::gettext('Document is not a Perl document') );
+		return;
 	}
 
 	my $destination = undef;
@@ -84,7 +80,10 @@ sub _tidy {
 		errorfile   => \$errorfile,
 	);
 
+	#Make sure output is visible...
+	$main->show_output(1);
 	my $output     = $main->output;
+	
 	my $perltidyrc = $document->project->config->config_perltidy;
 	if ($perltidyrc) {
 		$tidyargs{perltidyrc} = $perltidyrc;
@@ -98,12 +97,7 @@ sub _tidy {
 	eval { Perl::Tidy::perltidy(%tidyargs); };
 
 	if ($@) {
-		Wx::MessageBox(
-			$@,
-			Wx::gettext("PerlTidy Error"),
-			Wx::wxOK | Wx::wxCENTRE,
-			$main
-		);
+		$main->error( Wx::gettext("PerlTidy Error") . ":\n" . $@ );
 		return;
 	}
 
@@ -112,7 +106,6 @@ sub _tidy {
 		my $width    = length($filename) + 2;
 		$output->AppendText( "\n\n" . "-" x $width . "\n" . $filename . "\n" . "-" x $width . "\n" );
 		$output->AppendText("$errorfile\n");
-		$main->show_output(1);
 	}
 
 	return $destination;
@@ -173,9 +166,9 @@ sub _get_filename {
 
 	while (1) {
 		my $dialog = Wx::FileDialog->new(
-			$main,        Wx::gettext("Save file as..."),
-			$default_dir, $doc->filename . '.html',
-			"*.*",        Wx::wxFD_SAVE,
+			$main, Wx::gettext("Save file as..."),
+			$default_dir, ( $current or $doc->get_title ) . '.html',
+			"*.*", Wx::wxFD_SAVE,
 		);
 		if ( $dialog->ShowModal == Wx::wxID_CANCEL ) {
 			return;
@@ -184,14 +177,7 @@ sub _get_filename {
 		$default_dir = $dialog->GetDirectory;
 		my $path = File::Spec->catfile( $default_dir, $filename );
 		if ( -e $path ) {
-			my $res = Wx::MessageBox(
-				Wx::gettext("File already exists. Overwrite it?"),
-				Wx::gettext("Exist"),
-				Wx::wxYES_NO, $main,
-			);
-			if ( $res == Wx::wxYES ) {
-				return $path;
-			}
+			return $path if $main->yes_no( Wx::gettext("File already exists. Overwrite it?"), Wx::gettext("Exist") );
 		} else {
 			return $path;
 		}
@@ -208,11 +194,8 @@ sub _export {
 	my $doc = $main->current->document;
 
 	if ( !$doc->isa('Padre::Document::Perl') ) {
-		return Wx::MessageBox(
-			Wx::gettext('Document is not a Perl document'),
-			Wx::gettext('Error'),
-			Wx::wxOK | Wx::wxCENTRE, $main
-		);
+		$main->error( Wx::gettext('Document is not a Perl document') );
+		return;
 	}
 
 	my $filename = _get_filename($main);
@@ -227,33 +210,32 @@ sub _export {
 		errorfile   => \$error,
 	);
 
+	# Make sure output window is visible...
+	$main->show_output(1);
+	my $output = $main->output;
+	
 	if ( my $tidyrc = $doc->project->config->config_perltidy ) {
 		$tidyargs{perltidyrc} = $tidyrc;
-		Padre::Current->main->output->AppendText("Perl\::Tidy running with project-specific configuration $tidyrc\n");
+		$output->AppendText("Perl\::Tidy running with project-specific configuration $tidyrc\n");
 	}
-
 	else {
-		Padre::Current->main->output->AppendText("Perl::Tidy running with default or user configuration\n");
+		$output->AppendText("Perl::Tidy running with default or user configuration\n");
 	}
 
 	# TODO: suppress the senseless warning from PerlTidy
 	eval { Perl::Tidy::perltidy(%tidyargs); };
 
 	if ($@) {
-		my $error_string = $@;
-		Wx::MessageBox(
-			$error_string,
-			Wx::gettext('PerlTidy Error'),
-			Wx::wxOK | Wx::wxCENTRE, $main
-		);
+		$main->error( Wx::gettext("PerlTidy Error") . ":\n" . $@ );
 		return;
 	}
 
 	if ( defined $error ) {
 		my $width = length( $doc->filename ) + 2;
 		my $main  = Padre::Current->main;
-		$main->output->AppendText( "\n\n" . "-" x $width . "\n" . $doc->filename . "\n" . "-" x $width . "\n" );
-		$main->output->AppendText("$error\n");
+
+		$output->AppendText( "\n\n" . "-" x $width . "\n" . $doc->filename . "\n" . "-" x $width . "\n" );
+		$output->AppendText("$error\n");
 		$main->show_output(1);
 	}
 

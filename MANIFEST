@@ -20,10 +20,12 @@ share/locale/Padre__Plugin__PerlTidy-ar.po
 share/locale/Padre__Plugin__PerlTidy-de.po
 share/locale/Padre__Plugin__PerlTidy-es-es.po
 share/locale/Padre__Plugin__PerlTidy-fr-fr.po
+share/locale/Padre__Plugin__PerlTidy-it-it.po
 share/locale/Padre__Plugin__PerlTidy-ja.po
 share/locale/Padre__Plugin__PerlTidy-nl-nl.po
 share/locale/Padre__Plugin__PerlTidy-pl.po
 share/locale/Padre__Plugin__PerlTidy-pt-br.po
+share/locale/Padre__Plugin__PerlTidy-tr.po
 share/locale/Padre__Plugin__PerlTidy-zh-tw.po
 t/01-load.t
 t/02-menu.t
