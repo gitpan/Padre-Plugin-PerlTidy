@@ -24,7 +24,7 @@ use Padre::Current ();
 use Padre::Wx      ();
 use Padre::Plugin  ();
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 our @ISA     = 'Padre::Plugin';
 
 # This constant is used when storing
@@ -212,7 +212,7 @@ sub _export {
 
 	# Make sure output window is visible...
 	$main->show_output(1);
-	my $output = $main->output;
+	$output = $main->output;
 	
 	if ( my $tidyrc = $doc->project->config->config_perltidy ) {
 		$tidyargs{perltidyrc} = $tidyrc;
