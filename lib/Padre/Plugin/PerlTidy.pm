@@ -1,20 +1,10 @@
 package Padre::Plugin::PerlTidy;
+BEGIN {
+  $Padre::Plugin::PerlTidy::VERSION = '0.13';
+}
 
-=pod
+# ABSTRACT: Format perl files using Perl::Tidy
 
-=head1 NAME
-
-Padre::Plugin::PerlTidy - Format perl files using Perl::Tidy
-
-=head1 SYNOPIS
-
-This is a simple plugin to run Perl::Tidy on your source code.
-
-Currently there are no customisable options (since the Padre plugin system
-doesn't support that yet) - however Perl::Tidy will use your normal .perltidyrc 
-file if it exists (see Perl::Tidy documentation).
-
-=cut
 
 use 5.008002;
 use strict;
@@ -24,8 +14,7 @@ use Padre::Current ();
 use Padre::Wx      ();
 use Padre::Plugin  ();
 
-our $VERSION = '0.12';
-our @ISA     = 'Padre::Plugin';
+our @ISA = 'Padre::Plugin';
 
 # This constant is used when storing
 # and restoring the cursor position.
@@ -82,8 +71,8 @@ sub _tidy {
 
 	#Make sure output is visible...
 	$main->show_output(1);
-	my $output     = $main->output;
-	
+	my $output = $main->output;
+
 	my $perltidyrc = $document->project->config->config_perltidy;
 	if ($perltidyrc) {
 		$tidyargs{perltidyrc} = $perltidyrc;
@@ -102,8 +91,8 @@ sub _tidy {
 	}
 
 	if ( defined $errorfile ) {
-		my $filename = $document->filename;
-		my $width    = length($filename) + 2;
+		my $filename = $document->filename ? $document->filename : $document->get_title;
+		my $width = length($filename) + 2;
 		$output->AppendText( "\n\n" . "-" x $width . "\n" . $filename . "\n" . "-" x $width . "\n" );
 		$output->AppendText("$errorfile\n");
 	}
@@ -213,12 +202,11 @@ sub _export {
 	# Make sure output window is visible...
 	$main->show_output(1);
 	$output = $main->output;
-	
+
 	if ( my $tidyrc = $doc->project->config->config_perltidy ) {
 		$tidyargs{perltidyrc} = $tidyrc;
 		$output->AppendText("Perl\::Tidy running with project-specific configuration $tidyrc\n");
-	}
-	else {
+	} else {
 		$output->AppendText("Perl::Tidy running with default or user configuration\n");
 	}
 
@@ -316,7 +304,25 @@ sub _store_cursor_position {
 
 1;
 
+
+__END__
 =pod
+
+=head1 NAME
+
+Padre::Plugin::PerlTidy - Format perl files using Perl::Tidy
+
+=head1 VERSION
+
+version 0.13
+
+=head1 SYNOPSIS
+
+This is a simple plugin to run Perl::Tidy on your source code.
+
+Currently there are no customisable options (since the Padre plugin system
+doesn't support that yet) - however Perl::Tidy will use your normal .perltidyrc
+file if it exists (see Perl::Tidy documentation).
 
 =head1 INSTALLATION
 
@@ -372,17 +378,30 @@ Runs Perl::Tidy on the current code selection.
 
 Export the current code selection as html.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Brian Cassidy E<lt>bricas@cpan.orgE<gt>
+=over 4
+
+=item *
+
+Brian Cassidy <bricas@cpan.org>
+
+=item *
 
 Patrick Donelan
 
+=item *
+
+Ahmad M. Zawawi <ahmad.zawawi@gmail.com>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2008-2010 by Patrick Donelan, Brian Cassidy
+This software is copyright (c) 2010 by Patrick Donelanm, Brian Cassidy.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+

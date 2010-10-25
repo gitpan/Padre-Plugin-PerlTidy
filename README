@@ -1,62 +1,13 @@
-NAME
-    Padre::Plugin::PerlTidy - Format perl files using Perl::Tidy
 
-SYNOPIS
-    This is a simple plugin to run Perl::Tidy on your source code.
 
-    Currently there are no customisable options (since the Padre plugin
-    system doesn't support that yet) - however Perl::Tidy will use your
-    normal .perltidyrc file if it exists (see Perl::Tidy documentation).
+This archive contains the distribution Padre-Plugin-PerlTidy,
+version 0.13:
 
-INSTALLATION
-    You can install this module like any other Perl module and it will
-    become available in your Padre editor. However, you can also choose to
-    install it into your user's Padre configuration directory only:
+  Format perl files using Perl::Tidy
 
-    *   Install the prerequisite modules.
+This software is copyright (c) 2010 by Patrick Donelanm, Brian Cassidy.
 
-    *   perl Makefile.PL
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
-    *   make
-
-    *   make installplugin
-
-    This will install the plugin as PerlTidy.par into your user's
-    ~/.padre/plugins directory.
-
-    Similarly, "make plugin" will just create the PerlTidy.par which you can
-    then copy manually.
-
-METHODS
-  padre_interfaces
-    Indicates our compatibility with Padre.
-
-  plugin_name
-    A simple accessor for the name of the plugin.
-
-  menu_plugins_simple
-    Menu items for this plugin.
-
-  tidy_document
-    Runs Perl::Tidy on the current document.
-
-  export_document
-    Export the current document as html.
-
-  tidy_selection
-    Runs Perl::Tidy on the current code selection.
-
-  export_selection
-    Export the current code selection as html.
-
-AUTHOR
-    Brian Cassidy <bricas@cpan.org>
-
-    Patrick Donelan
-
-COPYRIGHT AND LICENSE
-    Copyright 2008-2010 by Patrick Donelan, Brian Cassidy
-
-    This library is free software; you can redistribute it and/or modify it
-    under the same terms as Perl itself.
 
