@@ -1,6 +1,6 @@
 package Padre::Plugin::PerlTidy;
 BEGIN {
-  $Padre::Plugin::PerlTidy::VERSION = '0.14';
+  $Padre::Plugin::PerlTidy::VERSION = '0.15';
 }
 
 # ABSTRACT: Format perl files using Perl::Tidy
@@ -314,7 +314,7 @@ Padre::Plugin::PerlTidy - Format perl files using Perl::Tidy
 
 =head1 VERSION
 
-version 0.14
+version 0.15
 
 =head1 SYNOPSIS
 
