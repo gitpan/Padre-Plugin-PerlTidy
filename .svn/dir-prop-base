@@ -1,0 +1,19 @@
+K 10
+svn:ignore
+V 88
+.build
+Padre-Plugin-PerlTidy-*
+_build
+pm_to_blib
+META.yml
+blib
+inc
+Makefile
+MYMETA.yml
+
+
+K 13
+svn:mergeinfo
+V 0
+
+END

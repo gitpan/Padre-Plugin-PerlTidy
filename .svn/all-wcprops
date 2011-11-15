@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/padre/!svn/ver/17384/trunk/Padre-Plugin-PerlTidy
+END
+Makefile.PL
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/padre/!svn/ver/17384/trunk/Padre-Plugin-PerlTidy/Makefile.PL
+END
+Changes
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/padre/!svn/ver/17395/trunk/Padre-Plugin-PerlTidy/Changes
+END
+padre.yml
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/padre/!svn/ver/10166/trunk/Padre-Plugin-PerlTidy/padre.yml
+END
+MANIFEST.SKIP
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/padre/!svn/ver/16019/trunk/Padre-Plugin-PerlTidy/MANIFEST.SKIP
+END

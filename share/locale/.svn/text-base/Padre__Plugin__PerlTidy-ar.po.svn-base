@@ -4,55 +4,55 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-25 14:42+0300\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Breno G. de Oliveira <garu@cpan.org>\n"
-"Language-Team: Brazilian Portuguese\n"
-"Language: \n"
+"Last-Translator: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>\n"
+"Language-Team: Ahmad M. Zawawi <ahmad.zawawi@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Arabic\n"
 
 #: lib/Padre/Plugin/PerlTidy.pm:39
 msgid "Perl Tidy"
-msgstr "Perl Tidy"
+msgstr "ترتيب ملفات Perl"
 
 #: lib/Padre/Plugin/PerlTidy.pm:45
 msgid "Tidy the active document\tAlt+Shift+F"
-msgstr "Organizar documento ativo\tAlt+Shift+F"
+msgstr "ترتيب الوثيقة الحالية\tAlt+Shift+F"
 
 #: lib/Padre/Plugin/PerlTidy.pm:46
 msgid "Tidy the selected text\tAlt+Shift+G"
-msgstr "Organizar texto selecionado\tAlt+Shift+G"
+msgstr "ترتيب النص المختار\tAlt+Shift+G"
 
 #: lib/Padre/Plugin/PerlTidy.pm:49
 msgid "Export active document to HTML file"
-msgstr "Exportar documento ativo para HTML"
+msgstr "تصدير الوثيقة الحالية إلى ملف HTML"
 
 #: lib/Padre/Plugin/PerlTidy.pm:51
 msgid "Export selected text to HTML file"
-msgstr "Exportar texto selecionado para HTML"
+msgstr "تصدير النص المختار إلى ملف HTML"
 
 #: lib/Padre/Plugin/PerlTidy.pm:67
 #: lib/Padre/Plugin/PerlTidy.pm:194
 msgid "Document is not a Perl document"
-msgstr "Documento n�o � um documento Perl"
+msgstr "الوثيقة ليست وثيقة Perl"
 
 #: lib/Padre/Plugin/PerlTidy.pm:97
 #: lib/Padre/Plugin/PerlTidy.pm:226
 msgid "PerlTidy Error"
-msgstr "Erro do PerlTidy"
+msgstr "خطأ PerlTidy"
 
 #: lib/Padre/Plugin/PerlTidy.pm:166
 msgid "Save file as..."
-msgstr "Salvar como..."
+msgstr "حفظ الملف ك..."
 
 #: lib/Padre/Plugin/PerlTidy.pm:177
 msgid "File already exists. Overwrite it?"
-msgstr "Arquivo existente. Sobrescrever?"
+msgstr "Le fichier existe déjà. Le remplacer ?"
 
 #: lib/Padre/Plugin/PerlTidy.pm:177
 msgid "Exist"
-msgstr "Existe"
+msgstr "موجود"
 
 #~ msgid "Error"
-#~ msgstr "Erro"
+#~ msgstr "خطأ"
 
