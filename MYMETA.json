@@ -22,7 +22,7 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "6.42",
+            "ExtUtils::MakeMaker" : "6.62",
             "Test::More" : "0.42"
          }
       },
@@ -33,12 +33,12 @@
       },
       "runtime" : {
          "requires" : {
-            "Padre" : "0.92",
-            "Perl::Tidy" : "20101217",
+            "Padre::Plugin" : "0.92",
+            "Params::Util" : "1.04",
             "perl" : "5.008002"
          }
       }
    },
    "release_status" : "stable",
-   "version" : "0.18"
+   "version" : "0.19"
 }
