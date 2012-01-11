@@ -6,9 +6,9 @@ build_requires:
   ExtUtils::MakeMaker: 6.62
   Test::More: 0.42
 configure_requires:
-  ExtUtils::MakeMaker: 6.62
+  ExtUtils::MakeMaker: 0
 dynamic_config: 0
-generated_by: 'Module::Install version 1.04, CPAN::Meta::Converter version 2.112621'
+generated_by: 'ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.112621'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -16,16 +16,10 @@ meta-spec:
 name: Padre-Plugin-PerlTidy
 no_index:
   directory:
-    - inc
-    - share
     - t
+    - inc
 requires:
   Padre::Plugin: 0.92
   Params::Util: 1.04
   perl: 5.008002
-resources:
-  bugtracker: http://padre.perlide.org/
-  homepage: http://padre.perlide.org/
-  license: http://dev.perl.org/licenses/
-  repository: http://svn.perlide.org/padre/trunk/Padre-Plugin-PerlTidy
-version: 0.19
+version: 0.21
